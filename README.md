@@ -4,7 +4,7 @@
 # Objetivos do Estudo
 * Desenvolvimento Nativo: Criar uma aplicação desktop robusta e eficiente em C/C++.
 * Integração com API: Utilizar uma API de alto nível para acelerar o desenvolvimento e otimizar o processo de integração.
-* Foco no Usuário: Garantir que a interface e a funcionalidade atendam às necessidades dos usuários, proporcionando uma experiência fluida e intuitiva.
+
 # Tecnologias Utilizadas
 * Linguagens: C, C++ e C#
 * APIs: [Bank-service-system]
