@@ -1,5 +1,6 @@
 #pragma once
 #include "Prototipos.h"
+
 void loadLocal()
 {
 	setlocale(LC_ALL, "pt-BR");
@@ -10,49 +11,65 @@ void freekeyboardBuffer()
 	fflush(stdin);
 }
 
-void getHomePage() 
-{
+void getHomePage() {
 	optionsMenu menu;
+	IniFile* ini = FileManager::load_ini("config.ini");
+
+	if (!ini) {
+		ini = (IniFile*)malloc(sizeof(IniFile));
+		ini->sections = NULL;
+		ini->section_count = 0;
+
+		FileManager::initialize_default_values(ini);
+	}
+
+	string datetime = getCurrentTime();
+	printf(datetime.c_str());
+
+
 	menu.initVals = initVals;
 	menu.existVal = existVal;
+	
 	menu.initVals(&menu);
 
 	system("CLS");
+	
 	loadLocal();
+	
 	freekeyboardBuffer();
 
-	drawLine('n',1);
-
-	printf("Seja bem vindo ao banco HELLO WORLD!");
-	
-	drawLine('n',1);
-	drawLine('y',1);
-	drawLine('n',2);
+	drawLine('n', 1);
+	printf("Seja bem-vindo ao banco HELLO WORLD!");
+	drawLine('n', 1);
+	drawLine('y', 1);
+	drawLine('n', 2);
 
 	printf("\nPor favor, selecione uma das opções abaixo:\n");
 	getOptions();
 
-	int c;
-
-	while ((c = getchar()) != '\n' && c != EOF) 
-	{
-		int numero = c - '0';
-
-		if (menu.existVal(&menu, numero))
-		{
-			system("CLS");
-			printf("Processando...");
-			delay(10000);
-		}
-		else
-		{
-			system("CLS");
-			printf("opção não encontrada! Voltando...");
-			delay(10000);
-			getHomePage();
-		}
+	int numero;
+	if (scanf_s("%d", &numero) != 1) {
+		printf("Erro de entrada, por favor insira um número.\n");
+		FileManager::free_ini(ini);
+		getHomePage();
+		return;
 	}
 
+	if (menu.existVal(&menu, numero)) {
+		system("CLS");
+		printf("Processando...");
+		delay(10000);
+		FileManager::free_ini(ini);
+	}
+	else {
+		system("CLS");
+		printf("Opção não encontrada! Voltando...");
+		delay(10000);
+		
+		FileManager::free_ini(ini);
+
+		getHomePage();
+	}
 }
 
 void drawLine(char br, int count) 
@@ -78,7 +95,8 @@ void getOptions()
 	printf("\n[ 0 ] - Consultar saldo.");
 	printf("\n[ 1 ] - Movimentações");
 	printf("\n[ 2 ] - Fazer transferência.");
-	printf("\n:");
+	printf("\n[ 3 ] - Limite de crédito.");
+	printf("\nDigite a operação:");
 }
 
 void initVals(optionsMenu* menu) 
@@ -97,4 +115,28 @@ bool existVal(optionsMenu* menu, int val)
 		}
 	}
 	return false;
+}
+
+std::string getCurrentTime()
+{
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+
+	char buffer[30];
+	snprintf(buffer, sizeof(buffer), "%02d/%02d/%04d %02d:%02d:%02d.%03d",
+		st.wDay,         // Dia
+		st.wMonth,       // Mês
+		st.wYear,        // Ano
+		st.wHour,        // Hora
+		st.wMinute,      // Minuto
+		st.wSecond,      // Segundo
+		st.wMilliseconds // Milissegundos
+	);
+
+	return std::string(buffer);
+}
+
+void processarOperacao(int operacao)
+{
+
 }

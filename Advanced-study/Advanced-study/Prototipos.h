@@ -9,6 +9,9 @@ void getHomePage();
 void drawLine(char br, int count);
 void delay(int milliseconds);
 void getOptions();
+void processarOperacao(int operacao);
+
+std::string getCurrentTime();
 
 typedef struct optionsMenu
 {
