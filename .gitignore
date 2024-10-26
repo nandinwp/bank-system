@@ -64,3 +64,9 @@
 /Advanced-study/.vs/Advanced-study/FileContentIndex/a35ac8e8-b486-48a3-b0a3-399998c1cb68.vsidx
 /Advanced-study/.vs/Advanced-study/FileContentIndex/b3b7db39-0784-4b3b-bf26-00b7520e9be7.vsidx
 /Advanced-study/.vs/Advanced-study/v17/Preview/ipch/AutoPCH/f19affa98df1efd6/FILEMANAGER.ipch
+*.vsidx
+*.cache
+*.editorconfig
+*.txt
+*.props
+*.targets
