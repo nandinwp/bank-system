@@ -59,9 +59,23 @@ void getHomePage() {
 		system("CLS");
 		printf("Processando...");
 		delay(10000);
-		FileManager::free_ini(ini);
+		if (processarOperacao(numero, &menu) == EXIT_FAILURE) 
+		{
+			printf("Operação não disponível");
+			delay(10000);
+			getHomePage();
+			return;
+		}
+		else
+		{
+			printf("\nOperação finalizada com sucesso!");
+			delay(10000);
+			getHomePage();
+			return;
+		}
 	}
-	else {
+	else
+	{
 		system("CLS");
 		printf("Opção não encontrada! Voltando...");
 		delay(10000);
@@ -136,7 +150,14 @@ std::string getCurrentTime()
 	return std::string(buffer);
 }
 
-void processarOperacao(int operacao)
+int processarOperacao(int operacao, optionsMenu* menu)
 {
-
+	if (menu->existVal(menu, operacao)) 
+	{
+		return EXIT_SUCCESS;
+	}
+	else
+	{
+		return EXIT_FAILURE;
+	}
 }

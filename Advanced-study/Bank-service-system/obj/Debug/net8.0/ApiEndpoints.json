@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "Bank_service_system.Controllers.BankServiceApi",
+    "Method": "LoginAction",
+    "RelativePath": "BankServiceApi/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "Bank_service_system.Models.Login",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

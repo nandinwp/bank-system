@@ -9,7 +9,6 @@ void getHomePage();
 void drawLine(char br, int count);
 void delay(int milliseconds);
 void getOptions();
-void processarOperacao(int operacao);
 
 std::string getCurrentTime();
 
@@ -22,3 +21,4 @@ typedef struct optionsMenu
 } optionsMenu;
 void initVals(optionsMenu* menu);
 bool existVal(optionsMenu* menu, int val);
+int processarOperacao(int operacao, optionsMenu* menus);

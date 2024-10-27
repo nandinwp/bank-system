@@ -1,7 +1,8 @@
 // FileManager.cpp
 #include "FileManager.h"
 
-IniFile* FileManager::load_ini(const char* filename) {
+IniFile* FileManager::load_ini(const char* filename)
+{
     FILE* file;
     if (fopen_s(&file, filename, "r") != 0) return NULL;
 
@@ -21,21 +22,40 @@ IniFile* FileManager::load_ini(const char* filename) {
             current_section = &ini->sections[ini->section_count - 1];
             current_section->pair_count = 0;
             current_section->pairs = NULL;
-            sscanf_s(line, "[%63[^]]]", current_section->section);
+
+            if (sscanf_s(line, "[%63[^]]]", current_section->section, (unsigned)_countof(current_section->section)) == 1) {
+
+            }
+            else {
+
+            }
         }
         else if (current_section) {
             IniPair pair;
-            sscanf_s(line, "%63[^=]=%255[^\n]", pair.key, pair.value);
 
-            current_section->pair_count++;
-            current_section->pairs = (IniPair*)realloc(current_section->pairs, sizeof(IniPair) * current_section->pair_count);
-            current_section->pairs[current_section->pair_count - 1] = pair;
+            if (sscanf_s(line, "%63[^=]=%255[^\n]", pair.key, (unsigned)_countof(pair.key), pair.value, (unsigned)_countof(pair.value)) == 2) {
+
+                current_section->pair_count++;
+                IniPair* new_pairs = (IniPair*)realloc(current_section->pairs, sizeof(IniPair) * current_section->pair_count);
+                if (new_pairs == NULL) {
+                    fclose(file);
+                    free_ini(ini);
+                    return NULL;
+                }
+                current_section->pairs = new_pairs;
+                current_section->pairs[current_section->pair_count - 1] = pair;
+            }
+            else 
+            {
+
+            }
         }
     }
 
     fclose(file);
     return ini;
 }
+
 
 
 const char* FileManager::get_value(IniFile* ini, const char* section, const char* key) {
