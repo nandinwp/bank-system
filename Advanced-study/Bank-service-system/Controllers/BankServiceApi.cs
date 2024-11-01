@@ -11,15 +11,13 @@ namespace Bank_service_system.Controllers
         [Route("login")]
         public async Task<IActionResult> LoginAction([FromBody] Login login)
         {
-            if (login == null) { return BadRequest("error"); }
-
-            if (ModelState.IsValid) 
-                if(login.username.Equals("guest") && login.passworld.Equals("1234"))
-                    return Ok("autorizado");
-                else
-                    return Unauthorized("Não autorizado");
-            else
-                return NotFound("");
+            return login == null ? 
+                BadRequest("error") :
+                ModelState.IsValid ?
+                login.username.Equals("guest") && login.username.Equals("1234") ?
+                Ok("autorizado") :
+                Unauthorized("Não autorizado") : 
+                NotFound("Não encontrado");
         }
 
     }

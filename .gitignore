@@ -91,3 +91,10 @@
 /Advanced-study/Bank-service-system/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
 /Advanced-study/Bank-service-system/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Advanced-study/Bank-service-system/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+*.db
+*.db-shm
+*.db-wal
+*.bin
+*.log
+/Advanced-study/lib
+/Advanced-study/include
